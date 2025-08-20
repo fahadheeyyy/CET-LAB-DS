@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <!-- <center> -->
+            <h1>WEB TECHNOLOGY</h1>
+            <!-- </center> -->
+        </div>
+        <div class="navigation">
+            <h2>List Of Contents</h2>
+            <ul>
+                <ul>
+                    <li>
+                        <a href="#client">Client-Server</a>
+                    </li>
+                    <li>
+                        <a href="#components">Components of Web Applications</a>
+                    </li>
+                    <li>
+                        <a href="#web-content">Types of Web Content</a>
+                    </li>
+                    <li>
+                        <a href="#http">HTTP & HTTP Requests</a>
+                    </li>
+                    <li>
+                        <a href="#dynamic">Dynamic Web Pages</a>
+                    </li>
+                    <li>
+                        <a href="#app-server">Application Servers</a>
+                    </li>
+                    <li>
+                        <a href="#security">Web Security</a>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="client-server">
+
+                <h2 id="client">Client-Server</h2>
+                <div class="content-inside">
+                    <img src="client.png" width="300" height="200">
+                    <div>
+                        <p>
+                            The client-server model is a core concept in web technology. In this architecture, the
+                            <b>client</b>
+                            (such as a web browser or mobile app) initiates communication by sending requests for data
+                            or
+                            services. The <b>server</b> (such as a web server or database server) listens for these
+                            requests,
+                            processes them, and sends back the appropriate responses.
+                        </p>
+                        <p>
+                            This separation allows clients and servers to perform specialized tasks: clients handle user
+                            interaction and display, while servers manage data storage, security, and business logic.
+                            Communication typically happens over the internet using protocols like HTTP or HTTPS.
+                        </p>
+                        <ul>
+                            <li><b>Client:</b> Requests information or services (e.g., loading a web page).</li>
+                            <li><b>Server:</b> Responds with the requested data or performs actions (e.g., serving HTML,
+                                processing form submissions).</li>
+                        </ul>
+                        <p>
+                            The client-server model makes web applications scalable, secure, and easier to maintain.
+                            Most
+                            websites, online services, and apps use this model to deliver content and functionality to
+                            users.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="web-app">
+                <h2 id="components">Components of Web Applications</h2>
+
+                <div class="content-inside">
+                    <div>
+                        <p>
+                            Web applications are made up of several key components that work together to deliver
+                            interactive
+                            and
+                            dynamic experiences to users. The main components include:
+                        </p>
+                        <ul>
+                            <li><b>Client-Side (Front-End):</b> The part of the application that runs in the user's
+                                browser.
+                                It
+                                includes HTML, CSS, and JavaScript, which handle the user interface, layout, and
+                                interactivity.
+                            </li>
+                            <li><b>Server-Side (Back-End):</b> The part that runs on the web server. It processes
+                                requests,
+                                manages data, performs business logic, and communicates with databases. Common
+                                technologies
+                                include Node.js, PHP, Python, Java, and .NET.</li>
+                            <li><b>Database:</b> Stores and manages data for the application. Examples include MySQL,
+                                MongoDB,
+                                PostgreSQL, and SQL Server.</li>
+                            <li><b>Communication Protocols:</b> Define how data is exchanged between client and server,
+                                typically using HTTP or HTTPS.</li>
+                            <li><b>APIs (Application Programming Interfaces):</b> Allow different software components or
+                                services to communicate and share data, often using REST or GraphQL.</li>
+                            <li><b>Web Server:</b> Hosts the application, handles client requests, and serves files.
+                                Examples
+                                include Apache, Nginx, and Microsoft IIS.</li>
+                        </ul>
+                        <p>
+                            These components work together to provide a seamless user experience, enabling users to
+                            interact
+                            with web applications efficiently and securely.
+                        </p>
+                    </div>
+                    <img src="Web-Application-Architecture.webp" width="300" height="200">
+                </div>
+
+
+            </div>
+            <div class="web-content">
+                <h2 id="web-content">Types of Web Content</h2>
+                <div class="content-inside">
+                    <img src="11-Types-of-website-content.jpg" width="300" height="200">
+
+                    <div>
+
+                        <p>
+                            Web content refers to the information and media presented on websites and web applications.
+                            The main
+                            types of web content include:
+                        </p>
+                        <ul>
+                            <li><b>Text:</b> Articles, blog posts, product descriptions, instructions, and other written
+                                information.</li>
+                            <li><b>Images:</b> Photos, graphics, icons, and illustrations used to enhance visual appeal
+                                and
+                                convey information.</li>
+                            <li><b>Audio:</b> Music, podcasts, sound effects, and other audio files that provide
+                                information or
+                                entertainment.</li>
+                            <li><b>Video:</b> Clips, tutorials, live streams, and animations that engage users and
+                                deliver rich
+                                media experiences.</li>
+                            <li><b>Interactive Content:</b> Forms, quizzes, polls, games, and other elements that allow
+                                users to
+                                interact with the site.</li>
+                            <li><b>Downloads:</b> Documents, software, images, and other files users can save to their
+                                devices.
+                            </li>
+                            <li><b>Embedded Content:</b> Maps, social media feeds, widgets, and other content integrated
+                                from
+                                external sources.</li>
+                        </ul>
+                        <p>
+                            These types of content help websites inform, engage, and interact with users in various
+                            ways.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="http-request">
+                <h2 id="http">HTTP & HTTP Requests</h2>
+                <div class="content-inside">
+                    
+                    <div>
+                        <p>
+                            <b>HTTP</b> (HyperText Transfer Protocol) is the foundation of data communication on the
+                            web. It
+                            defines how messages are formatted and transmitted, and how web servers and browsers should
+                            respond
+                            to various commands.
+                        </p>
+                        <p>
+                            An <b>HTTP request</b> is sent by a client (usually a web browser) to a server when you
+                            visit a
+                            website or interact with a web application. The request asks for resources such as HTML
+                            pages,
+                            images, or data. The server processes the request and sends back an <b>HTTP response</b>
+                            containing
+                            the requested content or an error message.
+                        </p>
+                        <ul>
+                            <li><b>Common HTTP Methods:</b>
+                                <ul>
+                                    <li><b>GET:</b> Requests data from the server.</li>
+                                    <li><b>POST:</b> Submits data to be processed (e.g., form submission).</li>
+                                    <li><b>PUT:</b> Updates existing data.</li>
+                                    <li><b>DELETE:</b> Removes data.</li>
+                                </ul>
+                            </li>
+                            <li><b>Example:</b> When you enter a URL, your browser sends a GET request to the server,
+                                which
+                                responds with the web page.</li>
+                        </ul>
+                        <p>
+                            HTTP requests and responses are essential for communication between clients and servers,
+                            enabling
+                            the exchange of information on the web.
+                        </p>
+                    </div>
+                    <img src="http.webp" width="300" height="200">
+                </div>
+            </div>
+            <div class="dynamic-web">
+                <h2 id="dynamic">Dynamic Web Pages</h2>
+                <div class="content-inside">
+                    <img src="dynamic.jpeg" alt="">
+                    <div>
+                        <p>
+                            Dynamic web pages are web pages whose content can change in response to user actions, data
+                            updates,
+                            or other events. Unlike static pages, which display the same information to every visitor,
+                            dynamic
+                            pages are generated on-the-fly by the server or updated in real-time by the browser using
+                            scripts.
+                        </p>
+                        <ul>
+                            <li><b>Server-Side Dynamic Pages:</b> Content is generated by server-side scripts (such as
+                                PHP,
+                                ASP.NET, Node.js, or Python) based on user input, database queries, or other logic
+                                before being
+                                sent to the browser.</li>
+                            <li><b>Client-Side Dynamic Pages:</b> Content is updated in the browser using JavaScript,
+                                often with
+                                technologies like AJAX or frameworks such as React, Angular, or Vue.js, without needing
+                                to
+                                reload the entire page.</li>
+                            <li><b>Examples:</b> Social media feeds, e-commerce product listings, dashboards, and
+                                interactive
+                                forms.</li>
+                        </ul>
+                        <p>
+                            Dynamic web pages provide personalized, interactive, and up-to-date experiences for users,
+                            making
+                            modern web applications more engaging and functional.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="application-server">
+                <h2 id="app-server">Application Servers</h2>
+                <div class="content-inside">
+                    <div>
+                        <p>
+                            An <b>application server</b> is a software framework that provides an environment for
+                            running web
+                            applications and services. It acts as a middle layer between the client (browser) and the
+                            database,
+                            handling business logic, processing requests, and managing resources.
+                        </p>
+                        <ul>
+                            <li><b>Role:</b> Executes server-side code, manages user sessions, connects to databases,
+                                and
+                                generates dynamic content.</li>
+                            <li><b>Examples:</b> Apache Tomcat, Microsoft ASP.NET, Node.js, IBM WebSphere, and WildFly.
+                            </li>
+                            <li><b>Benefits:</b> Scalability, security, centralized management, and support for complex
+                                business
+                                processes.</li>
+                        </ul>
+                        <p>
+                            Application servers are essential for building robust, scalable, and interactive web
+                            applications.
+                        </p>
+                    </div>
+                    <img src="application.png" alt="">
+
+                </div>
+                <div class="web-security">
+                    <h2 id="security">Web Security</h2>
+                    
+
+                    <div class="content-inside">
+                        
+                        <img src="websecurity.webp" alt="">
+                        <div>
+                            <p>
+                                Web security refers to the practices and technologies used to protect websites and web
+                                applications
+                                from threats, attacks, and unauthorized access. It ensures the confidentiality,
+                                integrity, and
+                                availability of data and services on the internet.
+                            </p>
+                            <ul>
+                                <li><b>Authentication:</b> Verifies the identity of users (e.g., login systems).</li>
+                                <li><b>Authorization:</b> Controls what users can access or modify.</li>
+                                <li><b>Encryption:</b> Protects data during transmission using protocols like HTTPS.
+                                </li>
+                                <li><b>Firewalls:</b> Monitor and filter incoming and outgoing traffic to block
+                                    malicious
+                                    activity.
+                                </li>
+                                <li><b>Input Validation:</b> Prevents attacks like SQL injection and cross-site
+                                    scripting (XSS)
+                                    by
+                                    checking user input.</li>
+                                <li><b>Regular Updates:</b> Keeping software and systems up to date to patch
+                                    vulnerabilities.
+                                </li>
+                            </ul>
+                            <p>
+                                Implementing strong web security measures is essential to safeguard user data, maintain
+                                trust,
+                                and
+                                ensure the reliable operation of web applications.
+                            </p>
+                        </div>
+                        
+
+                    </div>
+
+                </div>
+
+
+</body>
+
+</html>
