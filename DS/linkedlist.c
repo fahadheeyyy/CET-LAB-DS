@@ -78,6 +78,86 @@ void insertEnd(struct node **head, int value)
     // *head = newNode;
 }
 
+void deleteStart(struct node **head)
+{
+    if (*head == NULL)
+    {
+        printf("List is empty, nothing to delete.\n");
+        return;
+    }
+
+    struct node *temp = *head;
+    *head = (*head)->next;
+    free(temp);
+    printf("Deleted first node successfully.\n");
+}
+
+void deleteEnd(struct node **head)
+{
+    if (*head == NULL)
+    {
+        printf("List is empty, nothing to delete.\n");
+        return;
+    }
+
+    if ((*head)->next == NULL)
+    {
+        free(*head);
+        *head = NULL;
+        printf("Deleted last node successfully.\n");
+        return;
+    }
+
+    struct node *temp = *head;
+    while (temp->next->next != NULL)
+    {
+        temp = temp->next;
+    }
+    free(temp->next);
+    temp->next = NULL;
+    printf("Deleted last node successfully.\n");
+}
+
+void deletePos(struct node **head, int pos)
+{
+    if (*head == NULL)
+    {
+        printf("List is empty, nothing to delete.\n");
+        return;
+    }
+
+    struct node *temp = *head;
+
+    if (pos == 0)
+    {
+        *head = (*head)->next;
+        free(temp);
+        printf("Deleted node at position %d successfully.\n", pos);
+        return;
+    }
+
+    for (int i = 0; i < pos - 1; i++)
+    {
+        if (temp == NULL)
+        {
+            printf("Position %d does not exist.\n", pos);
+            return;
+        }
+        temp = temp->next;
+    }
+
+    if (temp == NULL || temp->next == NULL)
+    {
+        printf("Position %d does not exist.\n", pos);
+        return;
+    }
+
+    struct node *nodeToDelete = temp->next;
+    temp->next = nodeToDelete->next;
+    free(nodeToDelete);
+    printf("Deleted node at position %d successfully.\n", pos);
+}
+
 void searching(struct node *head, int value)
 {
 
@@ -107,6 +187,10 @@ int main()
     insertEnd(&new, 3000);
 
     display(new);
+
+    deleteEnd(&new);
+    deletePos(&new, 2);
+    deleteStart(&new);
 
     searching(new, 2000);
 }
