@@ -24,7 +24,7 @@ void insertAtStart(int data , int i){
     last->next=newNode;
     head->prev=newNode;
     if (i==0){
-    head=newNode;
+    head=newNode; 
     }
 }
 

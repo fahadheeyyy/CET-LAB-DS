@@ -1,85 +1,110 @@
+// #include <stdio.h>
+// #include <string.h>
+
+// #define MAX_NODES 100
+
+// int A[MAX_NODES][MAX_NODES]; // adjacency matrix
+// int visited[MAX_NODES];
+// int stack[MAX_NODES];
+// int top = -1;
+
+// void dfs(int node, int n) {
+//     visited[node] = 1;
+
+//     // Explore all outgoing edges: node → j
+//     for (int j = 0; j < n; j++) {
+//         if (A[node][j] == 1 && !visited[j]) {
+//             dfs(j, n);
+//         }
+//     }
+
+//     // Push to stack *after* exploring neighbors
+//     stack[++top] = node;
+// }
+
+// int main() {
+//     int n;
+//     printf("Enter the number of nodes: ");
+//     scanf("%d", &n);
+
+//     // Input adjacency matrix
+//     printf("\nEnter adjacency matrix (0/1):\n");
+//     for (int i = 0; i < n; i++) {
+//         for (int j = 0; j < n; j++) {
+//             printf("A[%d][%d]: ", i, j);
+//             scanf("%d", &A[i][j]);
+//         }
+//     }
+
+//     memset(visited, 0, sizeof(visited));
+
+//     // Perform DFS Topological Sort
+//     for (int i = 0; i < n; i++) {
+//         if (!visited[i]) {
+//             dfs(i, n);
+//         }
+//     }
+
+//     printf("\nTopological Order:\n");
+//     while (top != -1) {
+//         printf("%d ", stack[top--]);  // print in reverse finish time
+//     }
+//     printf("\n");
+
+//     return 0;
+// }
+
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAX 100
 
-int queue[MAX], front = 0, rear = -1;
+int V[MAX];
+int stack[MAX];
+int adj[MAX][MAX];
+int top=-1;
 
-// Function to enqueue
-void enqueue(int x) {
-    queue[++rear] = x;
+void dfs(int node,int n){
+    V[node]=1;
+
+    for (int j =0;j<n;j++){
+        if(adj[node][j]==1 && !V[j]){
+            dfs(j,n);
+        }
+    }
+
+    stack[++top]=node;
 }
 
-// Function to dequeue
-int dequeue() {
-    return queue[front++];
-}
+int main(){
 
-int main() {
-    int n, e;
-    int i, j;
+    int n;
+    printf("enter size :");
+    scanf("%d",&n);
 
-    printf("Enter number of vertices: ");
-    scanf("%d", &n);
+    // int adj[n][n];
 
-    int graph[n][n];
-    int indegree[n];
-
-    // Initialize graph with 0
-    for(i = 0; i < n; i++){
-        for(j = 0; j < n; j++){
-            graph[i][j] = 0;
-        }
-        indegree[i] = 0;
-    }
-
-    printf("Enter number of edges: ");
-    scanf("%d", &e);
-
-    printf("Enter edges (u v) meaning u -> v:\n");
-    for(i = 0; i < e; i++){
-        int u, v;
-        scanf("%d %d", &u, &v);
-        graph[u][v] = 1;
-        indegree[v]++;   // Increase indegree of destination vertex
-    }
-
-    // Enqueue all vertices with indegree 0
-    for(i = 0; i < n; i++){
-        if(indegree[i] == 0){
-            enqueue(i);
+    for(int i =0; i<n;i++){
+        for(int j =0; j<n ; j++){
+            printf("[%i][%d] :",i,j);
+            scanf("%d",&adj[i][j]);
         }
     }
 
-    int count = 0;
-    int topo[n];
+    memset(V,0,sizeof(V));
 
-    while(front <= rear){
-        int node = dequeue();
-        topo[count++] = node;
-
-        // Reduce indegree of neighbors
-        for(j = 0; j < n; j++){
-            if(graph[node][j] == 1){
-                indegree[j]--;
-
-                // If indegree becomes 0, add to queue
-                if(indegree[j] == 0)
-                    enqueue(j);
-            }
+    for (int i=0 ; i<n ; i++){
+        if (!V[i]){
+            dfs(i,n);
         }
     }
 
-    // If count != n, graph has a cycle
-    if(count != n){
-        printf("Graph has a cycle. Topological sort not possible.\n");
-    }
-    else {
-        printf("Topological order: ");
-        for(i = 0; i < n; i++){
-            printf("%d ", topo[i]);
-        }
-        printf("\n");
+    printf("sorting:");
+
+    while(top!=-1){
+        printf("%d" , stack[top--] );
     }
 
     return 0;

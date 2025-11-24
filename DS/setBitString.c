@@ -21,9 +21,7 @@ void printSet(Set s, int n) {
 }
 
 int main() {
-    int n = 9; 
-    // Set A = 0b10101010;
-    // Set B = 0b10111000; 
+    int n = 8; 
     int A=0b10101010;
     int B=0b10111000;
 

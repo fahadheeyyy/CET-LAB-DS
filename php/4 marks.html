@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Card Entry</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            /* background: linear-gradient(120deg, #a8edea, #fed6e3); */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: 500;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-top: 5px;
+        }
+
+        button {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+
+        .result {
+            margin-top: 15px;
+            background: #f1faff;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Progress Entry</h2>
+        <form action="4.1marks.php" method="get">
+            <label>Name:</label>
+            <input type="text" name="name" id="name" required>
+
+            <label>Roll Number:</label>
+            <input type="number" name="age" id="age" required>
+
+            <label>English mark:</label>
+            <input type="number" name="eng-mark" id="eng-mark" required>
+
+            <label>Maths mark:</label>
+            <input type="number" name="maths-mark" id="maths-mark" required>
+
+            <label>CS mark:</label>
+            <input type="number" name="cs-mark" id="cs-mark" required>
+
+            <input type="hidden" name="total" id="total-hidden">
+            <input type="hidden" name="percentage" id="percentage-hidden">
+            <input type="hidden" name="grade" id="grade-hidden">
+
+            <button type="button" onclick="calculate()">Calculate</button>
+
+            <div class="result">
+                <p id="total"></p>
+                <p id="percentage"></p>
+                <p id="grade"></p>
+            </div>
+
+            <input type="submit" name="submit" value="Submit" style="display:none" id="submitBtn">
+        </form>
+    </div>
+
+    <script>
+        function calculate() {
+            let eng = parseInt(document.getElementById("eng-mark").value) || 0;
+            let maths = parseInt(document.getElementById("maths-mark").value) || 0;
+            let cs = parseInt(document.getElementById("cs-mark").value) || 0;
+
+            let total = eng + maths + cs;
+            let percentage = (total / 300) * 100;
+            let grade = "";
+
+            if (percentage >= 90) grade = "A+";
+            else if (percentage >= 80) grade = "A";
+            else if (percentage >= 70) grade = "B";
+            else if (percentage >= 60) grade = "C";
+            else if (percentage >= 50) grade = "D";
+            else grade = "Fail";
+
+            document.getElementById("total").innerText = "Total Marks: " + total;
+            document.getElementById("percentage").innerText = "Percentage: " + percentage.toFixed(2) + "%";
+            document.getElementById("grade").innerText = "Grade: " + grade;
+
+            document.getElementById("total-hidden").value = total;
+            document.getElementById("percentage-hidden").value = percentage.toFixed(2);
+            document.getElementById("grade-hidden").value = grade;
+
+            document.getElementById("submitBtn").style.display = "block";
+        }
+    </script>
+</body>
+</html>
