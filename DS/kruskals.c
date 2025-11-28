@@ -4,83 +4,87 @@
 
 #define MAX_NODES 100
 
-// DFS Function: To detect Cycle in a Graph
-int DFS(int node, int n, int graph[][MAX_NODES], int visited[], int recStack[], int parent) {
-    if (!visited[node]) {
-        // recStack is used to keep track of nodes in the current path of traversal
-        visited[node] = recStack[node] = 1;
+// Correct DFS for cycle detection in UNDIRECTED GRAPHS
+int DFS(int node, int n, int graph[][MAX_NODES], int visited[], int parent) {
+    visited[node] = 1;
 
-        for (int i = 0; i < n; i++) {
-            if (graph[node][i] != 0) {
-                // Recursively calling the function on each unvisited node
-                if (!visited[i])
-                     DFS(i, n, graph, visited, recStack, node);
-                // If the node is already visited, and the node is not the parent of the current node (2)
-                else if (recStack[i] && i != parent)
-                    return 1;
+    for (int i = 0; i < n; i++) {
+        if (graph[node][i] != 0) {   // if edge exists
+            if (!visited[i]) {
+                if (DFS(i, n, graph, visited, node))
+                    return 1;        // cycle found deeper
+            }
+            else if (i != parent) {
+                return 1;            // visited but not parent → cycle
             }
         }
     }
-    // Remove the node from the recursion stack
-    recStack[node] = 0;
-    return 0;
+    return 0;  // no cycle
 }
 
-
-void main() 
+int main() 
 {
     int n;
     printf("Enter the number of nodes: ");
     scanf("%d", &n);
 
-    // Read the Adjacency matrix
+    // Read adjacency matrix
     int A[MAX_NODES][MAX_NODES];
-    printf("Enter the adjacency matrix: \n");
+    printf("Enter the adjacency matrix:\n");
+
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
+            printf("enter [%d][%d] : ", i, j);
             scanf("%d", &A[i][j]);
-            // If there is no edge between two nodes
-            if (!A[i][j])
-                A[i][j] = INT_MAX;
+            if (A[i][j] == 0)
+                A[i][j] = INT_MAX;   // treat 0 as no edge
         }
     }
 
     int mst[MAX_NODES][MAX_NODES] = {0};
     int edge_count = 0, cost = 0;
-    printf("The edges in the Minimum Spanning Tree are: \n");
+
+    printf("\nEdges in the Minimum Spanning Tree:\n");
+
     while (edge_count < n - 1) {
-        // Find the smallest edge
-        int min = INT_MAX, u, v;
+
+        // Step 1: Find the minimum edge
+        int min = INT_MAX, u = -1, v = -1;
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (A[i][j] < min) {
                     min = A[i][j];
-                    u = i, v = j;
+                    u = i;
+                    v = j;
                 }
             }
         }
 
-        // Add the smallest edge to the MST and remove it from the graph
-        mst[u][v] = min;
-        A[u][v] = INT_MAX;
-        
-        // If the added edge forms a cycle in the MST, remove it 
-        for (int i = 0; i < n; i++) {
-            int visited[MAX_NODES] = {0}, recStack[MAX_NODES] = {0};
-            if (DFS(i, n, mst, visited, recStack, -1)) {
-                mst[u][v] = 0;
-                break;
-            }
-        }
+        if (min == INT_MAX) break;  // no more edges → disconnected graph
 
-        // Print each unique edge ({a, b} is unique if {b, a} is not already present)
-        if (!mst[v][u] && mst[u][v] != 0) {
+        // Step 2: Tentatively add this edge to MST
+        mst[u][v] = min;
+
+        // Remove it from A so it is not chosen again
+        A[u][v] = INT_MAX;
+
+        // Step 3: Cycle check using DFS
+        int visited[MAX_NODES] = {0};
+
+        if (DFS(u, n, mst, visited, -1)) {
+            // cycle found → remove edge
+            mst[u][v] = 0;
+        }
+        else {
+            // no cycle → accept edge
             cost += min;
-            printf("{%d, %d} = %d\n", u, v, mst[u][v]);
+            printf("{%d, %d} = %d\n", u, v, min);
             edge_count++;
         }
     }
-    printf("Minimum Cost: %d\n", cost);
+
+    printf("\nMinimum Cost: %d\n", cost);
+
+    return 0;
 }
-
-

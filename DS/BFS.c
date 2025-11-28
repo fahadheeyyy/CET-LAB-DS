@@ -1,20 +1,63 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
 #include <limits.h>
 
-#define MAX 100
+#define MAX_NODES 100
+
+int n;
+int queue[MAX_NODES];
+int front = -1, rear = -1;
 
 
-int indegree(int graph[][MAX], int n, int node);
+void enqueue(int value) {
+	if (rear == n - 1)
+		return;
+    if (front == -1)
+        front = 0;
+	rear++;
+	queue[rear] = value;
+}
+
+int dequeue() {
+	if (front == -1)
+		return -1;
+	int value = queue[front];
+    front++;
+    return value;
+}
 
 
-void main() {
-    int n;
+void BFS(int graph[][MAX_NODES], int n, int visited[], int source) {
+    enqueue(source);
+    visited[source] = 1;
+    
+    // Repeat until the queue is empty
+    while (front <= rear) {
+        // Perform dequeue and print the removed node
+        int node = dequeue();
+        printf("%d ", node);
+        // For all adjacent nodes of the deleted node that are unvisited
+        for (int i = 0; i < n; i++) {
+            if (graph[node][i] != 0 && !visited[i]) {
+                // Enqueue it and mark it as visited
+                enqueue(i);
+                visited[i] = 1;
+            }
+        }
+    }
+}
+
+void main()
+{
     printf("Enter the number of nodes: ");
     scanf("%d", &n);
 
+    // Visited Array
+    int V[MAX_NODES]={0};
+
+
     // Adjacency matrix
-    int A[MAX][MAX];
+    int A[MAX_NODES][MAX_NODES];
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             printf("A[%d][%d]: ", i, j);
@@ -22,33 +65,17 @@ void main() {
         }
     }
 
-    // Visited Array
-    int V[n];
-    memset(V, 0, sizeof(V));
-
-    // Topological Sorting
-    int count = 0;
-    while (count < n) {
-        for (int i = 0; i < n; i++) {
-            // If the indegree of an unvisited node is 0
-            if (indegree(A, n, i) == 0 && !V[i]) {
-                printf("%d\n", i);
-                V[i] = 1;
-                // Remove the row corresponding to this node by setting it to 0
-                for (int j = 0; j < n; j++) 
-                    A[i][j] = 0;
-                break;
-            }
-        }
-        count++;
+    // BFS
+    int source;
+    printf("Enter the starting node: ");
+    scanf("%d", &source);
+    if (source < 0 || source >= n) {
+        printf("Invalid!\n");
+        return;
     }
+    printf("BFS -> ");
+    BFS(A, n, V, source);
+    printf("\n");
 }
 
 
-// Indegree: Sum of the column in the matrix corresponding to that node
-int indegree(int graph[][MAX], int n, int node) {
-    int sum = 0;
-    for (int i = 0; i < n; i++)
-        sum += graph[i][node];
-    return sum;
-}

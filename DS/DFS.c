@@ -1,159 +1,50 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-#define MAX 10
+#define MAX 100
 
-int adj[MAX][MAX];  // adjacency matrix
-int visited[MAX];
-int stack[MAX];
-int top = -1;
+void DFS(int n, int graph[n][n], int visited[], int source) {
+    int stack[MAX];
+    int top = -1;
 
+    // Push source
+    stack[++top] = source;
+    visited[source] = 1;
 
-void push(int v){
-    if(top == MAX -1)
-    return;
-    stack[++top]=v;
-}
+    while (top != -1) {
+        // Pop from stack
+        int node = stack[top--];
+        printf("%d ", node);
 
-void pop(){
-    if(top==-1)
-    return;
-    return stack[top--];
-}
-
-void dfs(int start, int n){
-    int current;
-    push(start);
-    visited[start]=1;
-
-    while(top!=-1){
-    current=pop();
-    print(". %d .",current);
-
-    for(int i =1, i>=n , i++){
-        if(adj[current][i] && !visited){
-            push(i);
-            visited[i]=1;
+        for (int i = n - 1; i >= 0; i--) {
+            if (graph[node][i] != 0 && !visited[i]) {
+                stack[++top] = i;
+                visited[i] = 1;
+            }
         }
     }
-
-
-
-
-    }
 }
 
+int main() {
+    int n;
+    printf("Enter number of nodes: ");
+    scanf("%d", &n);
 
+    int visited[MAX]={0};
 
+    int A[n][n];
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++) {
+            printf("A[%d][%d]: ", i, j);
+            scanf("%d", &A[i][j]);
+        }
 
+    int source;
+    printf("Enter starting node: ");
+    scanf("%d", &source);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// #include <stdio.h>
-// #include <stdlib.h>
-
-// #define MAX 10
-
-// int adj[MAX][MAX];  // adjacency matrix
-// int visited[MAX];
-// int stack[MAX];
-// int top = -1;
-
-// // Function to push element onto stack
-// void push(int vertex) {
-//     if (top == MAX - 1) return;
-//     stack[++top] = vertex;
-// }
-
-// // Function to pop element from stack
-// int pop() {
-//     if (top == -1) return -1;
-//     return stack[top--];
-// }
-
-// // DFS function
-// void dfs(int start, int n) {
-//     int i, current;
-//     push(start);
-//     visited[start] = 1;
-
-//     printf("DFS Traversal: ");
-//     while (top != -1) {
-//         current = pop();
-//         printf("%d ", current);
-
-//         for (i = 1; i <= n; i++) {
-//             if (adj[current][i] == 1 && visited[i] == 0) {
-//                 push(i);
-//                 visited[i] = 1;
-//             }
-//         }
-//     }
-//     printf("\n");
-// }
-
-// int main() {
-//     int n, edges, i, u, v, start;
-
-//     printf("Enter number of vertices: ");
-//     scanf("%d", &n);
-
-//     // Initialize adjacency matrix and visited array
-//     for (i = 1; i <= n; i++) {
-//         visited[i] = 0;
-//         for (int j = 1; j <= n; j++)
-//             adj[i][j] = 0;
-//     }
-
-//     printf("Enter number of edges: ");
-//     scanf("%d", &edges);
-
-//     printf("Enter edges (u v):\n");
-//     for (i = 0; i < edges; i++) {
-//         scanf("%d %d", &u, &v);
-//         adj[u][v] = 1;
-//         adj[v][u] = 1; // undirected
-//     }
-
-//     printf("Enter starting vertex for DFS: ");
-//     scanf("%d", &start);
-
-//     dfs(start, n);
-
-//     return 0;
-// }
+    printf("DFS (using stack) -> ");
+    DFS(n, A, visited, source);
+    printf("\n");
+ 
+    return 0;
+}
